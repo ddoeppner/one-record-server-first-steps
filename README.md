@@ -2,6 +2,17 @@
 
 ## Introduction
 
+Hello and welcome to this is a short tutorial.
+The tutorial is intended to help ONE Record users get started with their ONE Record servers.
+It covers the topics:
+
+- Authentication with Access Tokens
+- Connecting to a ONE Record Server
+- Requesting Logistics Objects
+- Creating Logistics Objects
+- Updating Logistics Objects
+
+
 ### Important Terms and Concepts
 
 
