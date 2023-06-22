@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "506f88a8-e14b-42b1-b872-63864d2a1794",
+		"name": "ONE Record Hackathon Servers: First Steps",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28113023"
+	},
+	"item": [
+		{
+			"name": "1) Obtain an access token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "default"
+						},
+						{
+							"key": "scope",
+							"value": "<scope>",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "<client_id>",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "<client_secret>",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "<token_endpoint>",
+					"host": [
+						"<token_endpoint>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2) Get ServerInformation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "<access_token>",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/ld+json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "<one_record_server_url>",
+					"protocol": "https",
+					"host": [
+						"<one_record_server_url>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3) Get data owner (LogisticsObject)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "<access_token>",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/ld+json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "<data_owner_uri>",
+					"host": [
+						"<data_owner_uri>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4) Create Person (LogisticsObject)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "<access_token>",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/ld+json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"@type\": \"https://onerecord.iata.org/ns/cargo#Person\",\n    \"https://onerecord.iata.org/ns/cargo#firstName\": \"Tony\",\n    \"https://onerecord.iata.org/ns/cargo#lastName\": \"Stark\"    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "<one_record_server_url>/logistics-objects",
+					"host": [
+						"<one_record_server_url>"
+					],
+					"path": [
+						"logistics-objects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5) Update DataOwner Organization (add Person and replace name)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "<access_token>",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/ld+json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"@type\": \"https://onerecord.iata.org/ns/api#Change\",\n    \"https://onerecord.iata.org/ns/api#hasDescription\": \"Update name and link contactPerson\",\n    \"https://onerecord.iata.org/ns/api#hasLogisticsObject\": {\n        \"@id\": \"<data_owner_uri>\"\n    },\n    \"https://onerecord.iata.org/ns/api#hasOperation\": [\n        {\n            \"@type\": \"https://onerecord.iata.org/ns/api#Operation\",\n            \"https://onerecord.iata.org/ns/api#op\": {\n                \"@id\": \"https://onerecord.iata.org/ns/api#DELETE\"\n            },\n            \"https://onerecord.iata.org/ns/api#s\": \"<data_owner_uri>\",\n            \"https://onerecord.iata.org/ns/api#p\": \"https://onerecord.iata.org/ns/cargo#name\",\n            \"https://onerecord.iata.org/ns/api#o\": {\n                \"@type\": \"https://onerecord.iata.org/ns/api#OperationObject\",\n                \"https://onerecord.iata.org/ns/api#hasDatatype\": \"http://www.w3.org/2001/XMLSchema#string\",\n                \"https://onerecord.iata.org/ns/api#hasValue\": \"ACME Corporation\"\n            }\n        },\n        {\n            \"@type\": \"https://onerecord.iata.org/ns/api#Operation\",\n            \"https://onerecord.iata.org/ns/api#op\": {\n                \"@id\": \"https://onerecord.iata.org/ns/api#ADD\"\n            },\n            \"https://onerecord.iata.org/ns/api#s\": \"<data_owner_uri>\",\n            \"https://onerecord.iata.org/ns/api#p\": \"https://onerecord.iata.org/ns/cargo#name\",\n            \"https://onerecord.iata.org/ns/api#o\": {\n                \"@type\": \"https://onerecord.iata.org/ns/api#OperationObject\",\n                \"https://onerecord.iata.org/ns/api#hasDatatype\": \"http://www.w3.org/2001/XMLSchema#string\",\n                \"https://onerecord.iata.org/ns/api#hasValue\": \"The Avengers\"\n            }\n        },\n        {\n            \"@type\": \"https://onerecord.iata.org/ns/api#Operation\",\n            \"https://onerecord.iata.org/ns/api#op\": {\n                \"@id\": \"https://onerecord.iata.org/ns/api#ADD\"\n            },\n            \"https://onerecord.iata.org/ns/api#s\": \"<data_owner_uri>\",\n            \"https://onerecord.iata.org/ns/api#p\": \"https://onerecord.iata.org/ns/cargo#contactPersons\",\n            \"https://onerecord.iata.org/ns/api#o\": {\n                \"@type\": \"https://onerecord.iata.org/ns/api#OperationObject\",\n                \"https://onerecord.iata.org/ns/api#hasDatatype\": \"https://onerecord.iata.org/ns/cargo#Person\",\n                \"https://onerecord.iata.org/ns/api#hasValue\": \"<person_LogisticsObjectURI>\"\n            }\n        }\n    ],\n    \"https://onerecord.iata.org/ns/api#hasRevision\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "<data_owner_uri>",
+					"host": [
+						"<data_owner_uri>"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
