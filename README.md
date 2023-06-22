@@ -110,8 +110,8 @@ It covers the topics:
 12) Verify that the data owner object changed and the latest-revision is "2"
 
 ![Update Data Owner - Part 1](assets/Update-Data-Owner-1.png)
-![Update Data Owner - Part 2](assets/Update-Data-Owner-2.png)
-![Update Data Owner - Part 3](assets/Update-Data-Owner-3.png)
+![Update Data Owner - Part 2](assets/Update-Data-Owner-2b.png)
+![Update Data Owner - Part 3](assets/Update-Data-Owner-3b.png)
 
 
 # Supporting documents and further readings
