@@ -1,37 +1,38 @@
-version: '3.1'
+version: '3.8'
 services:
     ne-one-server:
         image: git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one:dev
+        ports:
+            - "8080:8080"
         environment:            
             - REPOSITORY_TYPE=http
             - HTTP_REPOSITORY_URL=http://graph-db:7200/repositories/neone
             - LO_ID_CONFIG_HOST=localhost
             - LO_ID_CONFIG_PORT=8080
             - LO_ID_CONFIG_SCHEME=http
-            - AUTH_VALID_ISSUERS_LOCAL=http://keycloak:8080/realms/neone
-            - AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION=http://keycloak:8080/realms/neone/protocol/openid-connect/certs
-            - QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL=http://keycloak:8080/realms/neone
+            - AUTH_VALID_ISSUERS_LOCAL=http://localhost:8089/realms/neone
+            - AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION=http://keycloak:8089/realms/neone/protocol/openid-connect/certs
+            - QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL=http://keycloak:8089/realms/neone
             - QUARKUS_OIDC_CLIENT_CLIENT_ID=neone-client
             - QUARKUS_OIDC_CLIENT_CREDENTIALS_SECRET=lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY                                                                                     
             - QUARKUS_HTTP_PORT=8080            
-            - QUARKUS_REDIS_HOSTS=redis://localhost:6379
-        ports:
-            - "8080:8080"
-        links:
-            - keycloak
+            - QUARKUS_REDIS_HOSTS=redis://localhost:6379        
+            - QUARKUS_REST_CLIENT_ACTION_REQUEST_CLIENT_URL=http://host.docker.internal:80
         depends_on:
            keycloak:
             condition: service_healthy
            graph-db:
             condition: service_healthy
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         
     keycloak:
         image: quay.io/keycloak/keycloak:22.0
         ports:
-            - "8089:8080"
+            - "8089:8089"
         healthcheck:
             # because curl was removed in keycloak 21+
-            test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8080;echo -e \"GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n\" >&3;grep \"HTTP/1.1 200 OK\" <&3"]
+            test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8089;echo -e \"GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n\" >&3;grep \"HTTP/1.1 200 OK\" <&3"]
             interval: 3s
             timeout: 2s
             start_period: 5s
@@ -40,11 +41,13 @@ services:
             KEYCLOAK_ADMIN: admin
             KEYCLOAK_ADMIN_PASSWORD: admin
             KC_HEALTH_ENABLED: true
+            KC_HTTP_PORT: 8089                      
         volumes:
             - "./keycloak/neone-realm.json:/opt/keycloak/data/import/neone-realm.json"
         command:
             - start-dev
             - --import-realm    
+            - --hostname=localhost
 
     graph-db:
         image: ontotext/graphdb:10.4.1
