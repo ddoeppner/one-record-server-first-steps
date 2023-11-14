@@ -1,3 +1,5 @@
+#!/bin/bash
+
 NEONE_REPO_HTTP_STATUS=$(curl -o /dev/null -s -w '%{http_code}' -i http://graph-db:7200/rest/repositories/"$NEONE_REPO_ID")
 
 if [ "$NEONE_REPO_HTTP_STATUS" -eq "404" ]; then
