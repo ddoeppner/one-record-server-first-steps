@@ -30,3 +30,18 @@ _(this list is not exclusive)_
 - [Stardog](https://www.stardog.com/)
 
 _(this list is not exclusive)_
+
+> If you want to use SPARQL to connect to a database, you must change
+> the configuration of the ne-one server.
+> 
+> Replace in docker-compose.yml the following lines:
+> ```yaml
+> - REPOSITORY_TYPE=http
+> - HTTP_REPOSITORY_URL=http://graph-db:7200/repositories/neone
+> ```
+> with
+> ```yaml
+> - REPOSITORY_TYPE=sparql
+> - SPARQL_QUERY_ENDPOINT=http://graphdb:7200/repositories/neone
+> - SPARQL_UPDATE_ENDPOINT=http://graphdb:7200/repositories/neone/statements
+> ```
