@@ -38,15 +38,21 @@ export class NeOneAuth extends Construct {
         });
 
         const getScope = "ne-one-get-" + envName;
+        const logisticScopeName = "logistics_agent_uri";
         const resourceServer = "ne-one-resource-server";
         const server = this.userPool.addResourceServer("ne-one-resource-server", {
             identifier: resourceServer,
             scopes: [{
                 scopeDescription: "Get neOne Scope",
                 scopeName: getScope
+            },
+            {
+                scopeDescription: "NeOne Logistics Scope",
+                scopeName: logisticScopeName
             }]
         });
         this.scope = `${resourceServer}/${getScope}`;
+        const logisticScope =  `${resourceServer}/${logisticScopeName}`;
         const domain = this.userPool.addDomain("ne-one-domain-" + envName, {
             cognitoDomain: {
                 domainPrefix: "ne-one-auth-" + envName
@@ -61,9 +67,10 @@ export class NeOneAuth extends Construct {
                 flows: {
                     clientCredentials: true
                 },
-                scopes: [cognito.OAuthScope.custom(`${resourceServer}/${getScope}`)],
+                scopes: [cognito.OAuthScope.custom(`${resourceServer}/${getScope}`), cognito.OAuthScope.custom(logisticScope)],
             },
             generateSecret: true,
+            accessTokenValidity: cdk.Duration.days(1)
         });
         appClient.node.addDependency(server);
         
