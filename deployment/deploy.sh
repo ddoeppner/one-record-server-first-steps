@@ -3,9 +3,14 @@
 set -e
 
 AREA_NAME=dev
-AWS_DEFAULT_REGION=eu-west-1
+AWS_DEFAULT_REGION=us-east-1
+CDK_DEFAULT_REGION=us-east-1
+
+sudo yum install -y jq
 
 cd ne-one-cdk
+
+npm i
 
 cdk bootstrap -c envName=$AREA_NAME
 
@@ -36,6 +41,8 @@ docker tag git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one:dev $R
 docker push $REPOS_URI:$AREA_NAME
 
 cd ../ne-one-app-cdk
+
+npm i
 
 cdk bootstrap -c envName=$AREA_NAME
 
