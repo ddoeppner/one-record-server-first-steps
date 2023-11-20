@@ -25,8 +25,7 @@ DB_WRITE_ENDPOINT=$(../cdk-output-parser.sh NeOneCdkStack$AREA_NAME db${AREA_NAM
 OIDC_CLIENT_ID=$(../cdk-output-parser.sh NeOneCdkStack$AREA_NAME auth${AREA_NAME}appclientid cdk-outputs.json)
 USERPOOL_ID=$(../cdk-output-parser.sh NeOneCdkStack$AREA_NAME auth${AREA_NAME}userPoolId cdk-outputs.json)
 OIDC_ENDPOINT=$(../cdk-output-parser.sh NeOneCdkStack$AREA_NAME auth${AREA_NAME}providerurl cdk-outputs.json)
-OIDC_CLIENT_SECRET=$(aws cognito-idp describe-user-pool-client --user-pool-id $USERPOOL_ID --client-id $OIDC_CLIENT_ID --query "UserPoolClient.ClientSecret" --output text)
-# --profile=sigent+builder-Admin
+OIDC_CLIENT_SECRET=$(aws cognito-idp describe-user-pool-client --user-pool-id $USERPOOL_ID --client-id $OIDC_CLIENT_ID --query "UserPoolClient.ClientSecret" --output text)xw
 
 aws ecr get-login-password --region $AWS_DEFAULT_REGION  | docker login --username AWS --password-stdin $REPOS
 
@@ -46,7 +45,7 @@ npm i
 
 cdk bootstrap -c envName=$AREA_NAME
 
-cdk deploy --require-approval never -c envName=$AREA_NAME -c tagName=placeholder --parameters appContainerRepositoryName=ne-one-app-dev \
+cdk deploy --require-approval never -c envName=$AREA_NAME -c tagName=placeholder --parameters appContainerRepositoryName=$REPOS_NAME \
     --parameters oidcClientId=$OIDC_CLIENT_ID \
     --parameters oidcClientSecret=$OIDC_CLIENT_SECRET \
     --parameters oidcEndpoint=$OIDC_ENDPOINT \
@@ -54,7 +53,7 @@ cdk deploy --require-approval never -c envName=$AREA_NAME -c tagName=placeholder
     --parameters dbWriteEndpoint=$DB_WRITE_ENDPOINT \
     --trace --outputs-file ./cdk-app-outputs.json
 
-cdk deploy --require-approval never -c envName=$AREA_NAME --parameters appContainerRepositoryName=ne-one-app-dev \
+cdk deploy --require-approval never -c envName=$AREA_NAME --parameters appContainerRepositoryName=$REPOS_NAME \
     --parameters oidcClientId=$OIDC_CLIENT_ID \
     --parameters oidcClientSecret=$OIDC_CLIENT_SECRET \
     --parameters oidcEndpoint=$OIDC_ENDPOINT \

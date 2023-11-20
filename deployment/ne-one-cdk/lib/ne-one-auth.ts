@@ -39,7 +39,7 @@ export class NeOneAuth extends Construct {
 
         const getScope = "ne-one-get-" + envName;
         const resourceServer = "ne-one-resource-server";
-        this.userPool.addResourceServer("ne-one-resource-server", {
+        const server = this.userPool.addResourceServer("ne-one-resource-server", {
             identifier: resourceServer,
             scopes: [{
                 scopeDescription: "Get neOne Scope",
@@ -65,7 +65,7 @@ export class NeOneAuth extends Construct {
             },
             generateSecret: true,
         });
-
+        appClient.node.addDependency(server);
         
         const urlOutput = new CfnOutput(this, "provider-url", {
             value: this.userPool.userPoolProviderUrl,

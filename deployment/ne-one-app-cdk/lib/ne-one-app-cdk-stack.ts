@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 import { NeOneServices } from './ne-one-services';
 
 export interface NeOneAppStackProps extends cdk.StackProps {
-  envName: string
+    envName: string
 }
 
 
