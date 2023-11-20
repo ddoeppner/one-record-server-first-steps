@@ -1,0 +1,46 @@
+{
+  "vpc-provider:account=885659622434:filter.tag:type=NeOne:region=eu-west-1:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-0d51998c2b3e46813",
+    "vpcCidrBlock": "10.0.0.0/16",
+    "ownerAccountId": "885659622434",
+    "availabilityZones": [],
+    "subnetGroups": [
+      {
+        "name": "private-subnet",
+        "type": "Private",
+        "subnets": [
+          {
+            "subnetId": "subnet-0c585303975dbb896",
+            "cidr": "10.0.0.0/24",
+            "availabilityZone": "eu-west-1a",
+            "routeTableId": "rtb-08f5ef6f88657dc5b"
+          },
+          {
+            "subnetId": "subnet-02f4517e957c05224",
+            "cidr": "10.0.1.0/24",
+            "availabilityZone": "eu-west-1b",
+            "routeTableId": "rtb-081459632c02ec384"
+          }
+        ]
+      },
+      {
+        "name": "public-subnet",
+        "type": "Public",
+        "subnets": [
+          {
+            "subnetId": "subnet-064e07b96c5ca24ab",
+            "cidr": "10.0.2.0/24",
+            "availabilityZone": "eu-west-1a",
+            "routeTableId": "rtb-03e69685fa7d95cea"
+          },
+          {
+            "subnetId": "subnet-0586756b8995d97c8",
+            "cidr": "10.0.3.0/24",
+            "availabilityZone": "eu-west-1b",
+            "routeTableId": "rtb-07be70954268aeaa1"
+          }
+        ]
+      }
+    ]
+  }
+}

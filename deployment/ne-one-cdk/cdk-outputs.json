@@ -1,0 +1,12 @@
+{
+  "NeOneCdkStackdev": {
+    "authdevcognitodomainurlF2086FAD": "ne-one-auth-dev.auth.eu-west-1.amazoncognito.com",
+    "dbdevreadAddress973306C3": "neptunedbcluster-ic7lldvkzrw5.cluster-ro-c87z7we6owdz.eu-west-1.neptune.amazonaws.com:8182",
+    "authdevproviderurl0E57B138": "https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_6MKXCZWaI",
+    "authdevuserPoolId18A90BA1": "eu-west-1_6MKXCZWaI",
+    "reposdevappRepositoryName949ED785": "ne-one-app-dev",
+    "dbdevwriteAddressCA6C5302": "neptunedbcluster-ic7lldvkzrw5.cluster-c87z7we6owdz.eu-west-1.neptune.amazonaws.com:8182",
+    "reposdevappRepositoryUri07346209": "885659622434.dkr.ecr.eu-west-1.amazonaws.com/ne-one-app-dev",
+    "authdevappclientid0972C012": "3tj3u0p7nhk2067pdi0m15vkjf"
+  }
+}
