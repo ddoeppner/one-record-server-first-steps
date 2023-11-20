@@ -37,7 +37,7 @@ export class NeOneAuth extends Construct {
             },
         });
 
-        const getScope = "neOne";
+        const getScope = "ne-one-get-" + envName;
         const resourceServer = "ne-one-resource-server";
         this.userPool.addResourceServer("ne-one-resource-server", {
             identifier: resourceServer,
