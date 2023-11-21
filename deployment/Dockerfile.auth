@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:22.0
+FROM quay.io/keycloak/keycloak:22.0.5
 
 ADD ./docker-compose/keycloak/ /opt/keycloak/data/import/
 

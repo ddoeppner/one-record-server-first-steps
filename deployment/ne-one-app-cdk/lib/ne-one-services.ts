@@ -68,7 +68,7 @@ export class NeOneServices extends Construct {
         healthCheck: apprunner.HealthCheck.http({
             healthyThreshold: 5,
             path: '/health',
-            unhealthyThreshold: 15,
+            unhealthyThreshold: 20,
         }),
 
     });
