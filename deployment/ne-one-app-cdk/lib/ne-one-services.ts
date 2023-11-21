@@ -2,13 +2,12 @@ import { Construct } from 'constructs';
 import * as apprunner from '@aws-cdk/aws-apprunner-alpha';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 
 export interface NeOneServicesProps {
     envName: string;
     appContainerRepositoryName: string;
-    oidcEndpoint: string;
-    oidcClientId: string;
-    oidcClientSecret: string;
+    authContainerRepositoryName: string;
     dbReadEndpoint: string;
     dbWriteEndpoint: string;
 }
@@ -40,6 +39,39 @@ export class NeOneServices extends Construct {
     if (!tagName) {
         tagName = envName;
     }
+    const username = "admin";
+    const secret = new secretsmanager.Secret(this, "keycloakcreds" + envName, {
+        generateSecretString: {
+            secretStringTemplate: JSON.stringify({username: username}),
+            generateStringKey: "password",
+            excludeCharacters:' \'%+:;{}."@/#<>`?!~&,[]](-)*^_\\|&$'
+        }
+    });
+
+    const authService = new apprunner.Service(this, 'ne_one_auth_app', {
+        serviceName: "neoneauthapp_" + envName,
+        source: apprunner.Source.fromEcr({
+            imageConfiguration: {
+                port: 8080,
+                environmentSecrets: {
+                    KEYCLOAK_ADMIN_PASSWORD: apprunner.Secret.fromSecretsManager(secret, "password"),
+                },
+                environmentVariables:  {
+                    KEYCLOAK_ADMIN: username,
+                    KC_HEALTH_ENABLED: "true",  
+                },
+                startCommand: "start-dev --proxy=edge --hostname-strict=false"
+            },
+            repository: ecr.Repository.fromRepositoryName(this, "authImport", props.authContainerRepositoryName),
+            tagOrDigest: envName,
+        }),
+        healthCheck: apprunner.HealthCheck.http({
+            healthyThreshold: 5,
+            path: '/health',
+            unhealthyThreshold: 15,
+        }),
+
+    });
 
     const appService = new apprunner.Service(this, 'ne_one_server_app', {
         serviceName: "neoneserverapp_" + envName,
@@ -55,15 +87,15 @@ export class NeOneServices extends Construct {
                     "LO_ID_CONFIG_PORT": "8080",
                     "LO_ID_CONFIG_SCHEME": "http",
                     "AUTH_VALID_ISSUERS_LOCAL": "http://localhost:8089/realms/neone",
-                    "AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION": props.oidcEndpoint + ".well-known/jwks.json",
-                    "QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL": props.oidcEndpoint,
-                    "QUARKUS_OIDC_CLIENT_CLIENT_ID": props.oidcClientId,
-                    "QUARKUS_OIDC_CLIENT_CREDENTIALS_SECRET": props.oidcClientSecret,                                                                             
+                    "AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION": "https://" + authService.serviceUrl + "/realms/neone/protocol/openid-connect/certs",
+                    "QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL": "https://" + authService.serviceUrl + "/realms/neone",
+                    "QUARKUS_OIDC_CLIENT_CLIENT_ID": "neone-client",
+                    "QUARKUS_OIDC_CLIENT_CREDENTIALS_SECRET": "lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY",                                                                             
                     "QUARKUS_HTTP_PORT": "8080",            
                     "QUARKUS_REDIS_HOSTS": "redis://localhost:6379",
                     "AUTO_ACCEPT_ACTION_REQUESTS": "true",
                     "BLOBSTORE_CREATE_BUCKET": "false",
-                }
+                },
             },
             repository: ecr.Repository.fromRepositoryName(this, "appImport", props.appContainerRepositoryName),
             tagOrDigest: tagName,

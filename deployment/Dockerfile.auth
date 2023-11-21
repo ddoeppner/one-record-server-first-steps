@@ -1,0 +1,9 @@
+FROM quay.io/keycloak/keycloak:22.0
+
+ADD ./docker-compose/keycloak/ /opt/keycloak/data/import/
+
+RUN /opt/keycloak/bin/kc.sh import --optimized --file /opt/keycloak/data/import/neone-realm.json
+
+EXPOSE 8080
+# start app
+ENTRYPOINT ["/opt/keycloak/bin/kc.sh"]

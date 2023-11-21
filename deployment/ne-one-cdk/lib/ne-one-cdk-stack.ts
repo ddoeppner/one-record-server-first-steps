@@ -14,7 +14,7 @@ export class NeOneCdkStack extends cdk.Stack {
 
       const repos = new NeOneArtefacts(this, "repos-" + props.envName, {envName: props.envName})
 
-      const auth = new NeOneAuth(this, "auth-" + props.envName, {envName: props.envName});
+      //const auth = new NeOneAuth(this, "auth-" + props.envName, {envName: props.envName});
 
       const db = new NeOneDatabase(this, "db-" + props.envName, {envName: props.envName} )
     }

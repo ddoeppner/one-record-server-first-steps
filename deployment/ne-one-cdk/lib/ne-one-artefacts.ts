@@ -16,12 +16,25 @@ export class NeOneArtefacts extends Construct {
             imageScanOnPush: true,
         });
 
+        const authRepository = new ecr.Repository(this, 'ne-one-auth-' + envName, {
+            repositoryName: "ne-one-auth-" + envName,
+            imageScanOnPush: true,
+        });
+
         const appRepositoryName = new cdk.CfnOutput(this, 'appRepositoryName', {
             value: appRepository.repositoryName
         });
 
         const appRepositoryUri = new cdk.CfnOutput(this, 'appRepositoryUri', {
             value: appRepository.repositoryUri,
+        });
+
+        const authRepositoryName = new cdk.CfnOutput(this, 'authRepositoryName', {
+            value: authRepository.repositoryName
+        });
+
+        const authRepositoryUri = new cdk.CfnOutput(this, 'authRepositoryUri', {
+            value: authRepository.repositoryUri,
         });
 
     }
