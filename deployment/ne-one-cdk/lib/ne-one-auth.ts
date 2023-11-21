@@ -37,6 +37,18 @@ export class NeOneAuth extends Construct {
             },
         });
 
+        const makeid = (length: number) => {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+            while (counter < length) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+            return result;
+        }
+
         const getScope = "ne-one-get-" + envName;
         const logisticScopeName = "logistics_agent_uri";
         const resourceServer = "ne-one-resource-server";
@@ -53,9 +65,10 @@ export class NeOneAuth extends Construct {
         });
         this.scope = `${resourceServer}/${getScope}`;
         const logisticScope =  `${resourceServer}/${logisticScopeName}`;
-        const domain = this.userPool.addDomain("ne-one-domain-" + envName, {
+        const uniqueId = makeid(6);
+        const domain = this.userPool.addDomain("ne-one-domain-" + uniqueId + envName, {
             cognitoDomain: {
-                domainPrefix: "ne-one-auth-" + envName
+                domainPrefix: "ne-one-auth-"+ uniqueId  + envName
             }
         });
 
@@ -88,4 +101,6 @@ export class NeOneAuth extends Construct {
             value: this.userPool.userPoolId,
         });
     }
+
+    
 }
