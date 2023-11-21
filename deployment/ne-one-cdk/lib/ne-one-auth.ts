@@ -39,7 +39,7 @@ export class NeOneAuth extends Construct {
 
         const makeid = (length: number) => {
             let result = '';
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const characters = 'abcdefghifklmnopqrstuvwxyz';
             const charactersLength = characters.length;
             let counter = 0;
             while (counter < length) {
