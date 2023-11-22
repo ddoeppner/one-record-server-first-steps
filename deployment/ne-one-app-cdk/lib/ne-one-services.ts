@@ -3,6 +3,7 @@ import * as apprunner from '@aws-cdk/aws-apprunner-alpha';
 import * as ecr from 'aws-cdk-lib/aws-ecr';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import * as cdk from 'aws-cdk-lib';
 
 export interface NeOneServicesProps {
     envName: string;
@@ -10,6 +11,10 @@ export interface NeOneServicesProps {
     authContainerRepositoryName: string;
     dbReadEndpoint: string;
     dbWriteEndpoint: string;
+    clientSecret: string;
+    serverHost: string;
+    serverPort: string;
+    serverProtocol: string;
 }
 
 export class NeOneServices extends Construct {
@@ -60,14 +65,14 @@ export class NeOneServices extends Construct {
                     KEYCLOAK_ADMIN: username,
                     KC_HEALTH_ENABLED: "true",  
                 },
-                startCommand: "start-dev --proxy=edge --hostname-strict=false"
+                startCommand: (tagName === envName) ?   "start-dev --proxy=edge --hostname-strict=false" : "echo"
             },
             repository: ecr.Repository.fromRepositoryName(this, "authImport", props.authContainerRepositoryName),
-            tagOrDigest: envName,
+            tagOrDigest: tagName,
         }),
         healthCheck: apprunner.HealthCheck.http({
             healthyThreshold: 5,
-            path: '/health',
+            path: (tagName === envName) ? '/health' : "/",
             unhealthyThreshold: 20,
         }),
 
@@ -83,14 +88,14 @@ export class NeOneServices extends Construct {
                     "REPOSITORY_TYPE": "sparql",
                     "SPARQL_QUERY_ENDPOINT": `https://${props.dbReadEndpoint}/sparql`,
                     "SPARQL_UPDATE_ENDPOINT": `https://${props.dbWriteEndpoint}/sparql`,
-                    "LO_ID_CONFIG_HOST": "localhost",
-                    "LO_ID_CONFIG_PORT": "8080",
-                    "LO_ID_CONFIG_SCHEME": "http",
-                    "AUTH_VALID_ISSUERS_LOCAL": "http://localhost:8089/realms/neone",
+                    "LO_ID_CONFIG_HOST": props.serverHost,
+                    "LO_ID_CONFIG_PORT": props.serverPort,
+                    "LO_ID_CONFIG_SCHEME": props.serverProtocol,
+                    "AUTH_VALID_ISSUERS_LOCAL": "http://" + authService.serviceUrl + "/realms/neone",
                     "AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION": "https://" + authService.serviceUrl + "/realms/neone/protocol/openid-connect/certs",
                     "QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL": "https://" + authService.serviceUrl + "/realms/neone",
                     "QUARKUS_OIDC_CLIENT_CLIENT_ID": "neone-client",
-                    "QUARKUS_OIDC_CLIENT_CREDENTIALS_SECRET": "lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY",                                                                             
+                    "QUARKUS_OIDC_CLIENT_CREDENTIALS_SECRET": props.clientSecret,                                                                             
                     "QUARKUS_HTTP_PORT": "8080",            
                     "QUARKUS_REDIS_HOSTS": "redis://localhost:6379",
                     "AUTO_ACCEPT_ACTION_REQUESTS": "true",
@@ -104,6 +109,10 @@ export class NeOneServices extends Construct {
         });
         appService.node.addDependency(securityGroup);
         appService.node.addDependency(vpcConnector);
+
+        const appServerUri = new cdk.CfnOutput(this, 'appServerUri', {
+            value: appService.serviceUrl,
+        });
 
     }
 }

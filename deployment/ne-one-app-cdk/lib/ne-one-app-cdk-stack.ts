@@ -26,9 +26,29 @@ export class NeOneAppCdkStack extends cdk.Stack {
         description: "The database read endpoint."
     });
 
+    const clientSecret = new cdk.CfnParameter(this, "clientSecret", {
+        type: "String",
+        description: "The keycloak client secret."
+    });
+
     const dbWriteEndpoint = new cdk.CfnParameter(this, "dbWriteEndpoint", {
         type: "String",
         description: "The database write endpoint."
+    });
+    const serverHost = new cdk.CfnParameter(this, "serverHost", {
+        type: "String",
+        description: "The neOne server host.",
+        default: "localhost"
+    });
+    const serverPort = new cdk.CfnParameter(this, "serverPort", {
+        type: "String",
+        description: "The neOne server port",
+        default: "8080"
+    });
+    const serverProtocol = new cdk.CfnParameter(this, "serverProtocol", {
+        type: "String",
+        description: "The neOne server protocol.",
+        default: "http"
     });
 
     const app = new NeOneServices(this, "services-" + props?.envName, {
@@ -36,7 +56,11 @@ export class NeOneAppCdkStack extends cdk.Stack {
         appContainerRepositoryName: appContainerRepositoryName.valueAsString, 
         authContainerRepositoryName: authContainerRepositoryName.valueAsString,
         dbReadEndpoint: dbReadEndpoint.valueAsString,
-        dbWriteEndpoint: dbWriteEndpoint.valueAsString
+        dbWriteEndpoint: dbWriteEndpoint.valueAsString,
+        clientSecret: clientSecret.valueAsString,
+        serverHost: serverHost.valueAsString,
+        serverPort: serverPort.valueAsString,
+        serverProtocol: serverProtocol.valueAsString,
         });
     }
 }

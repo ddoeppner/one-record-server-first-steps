@@ -34,30 +34,45 @@ PLACEHOLDER_TAG=placeholder
 docker pull testcontainers/helloworld:latest
 docker tag testcontainers/helloworld:latest $APP_REPOS_URI:$PLACEHOLDER_TAG
 docker push $APP_REPOS_URI:$PLACEHOLDER_TAG
+docker tag testcontainers/helloworld:latest $AUTH_REPOS_URI:$PLACEHOLDER_TAG
+docker push $AUTH_REPOS_URI:$PLACEHOLDER_TAG
 
 docker pull git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one:dev
 docker tag git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one:dev $APP_REPOS_URI:$AREA_NAME
 docker push $APP_REPOS_URI:$AREA_NAME
 
-cd ..
-docker build -t $AUTH_REPOS_NAME:$AREA_NAME -f ./Dockerfile.auth ..
-docker tag $AUTH_REPOS_NAME:$AREA_NAME $AUTH_REPOS_URI:$AREA_NAME
-docker push $AUTH_REPOS_URI:$AREA_NAME
 
-cd ne-one-app-cdk
+cd ../ne-one-app-cdk
 
 npm i
 
 cdk bootstrap -c envName=$AREA_NAME
 
+# HACK! Current script uses the same client secret so keeping it in the imported realm
+CURRENT_SECRET=$(jq -r '.clients[] | select (.clientId=="neone-client") | .secret ' ../../docker-compose/keycloak/neone-realm.json)
+CURRENT_LOGISTICS_URI=$(jq -r '.users[] | select (.username=="service-account-neone-client") | .attributes.logistics_agent_uri[0] ' ../../docker-compose/keycloak/neone-realm.json)
+
 cdk deploy --require-approval never -c envName=$AREA_NAME -c tagName=placeholder --parameters appContainerRepositoryName=$APP_REPOS_NAME \
     --parameters authContainerRepositoryName=$AUTH_REPOS_NAME \
     --parameters dbReadEndpoint=$DB_READ_ENDPOINT \
     --parameters dbWriteEndpoint=$DB_WRITE_ENDPOINT \
-    --trace --outputs-file ./cdk-app-outputs.json
+    --parameters clientSecret=$CURRENT_SECRET \
+    --trace --outputs-file ./cdk-app-placeholder-outputs.json
+
+docker build -t $AUTH_REPOS_NAME:$AREA_NAME -f ../Dockerfile.auth ../..
+docker tag $AUTH_REPOS_NAME:$AREA_NAME $AUTH_REPOS_URI:$AREA_NAME
+docker push $AUTH_REPOS_URI:$AREA_NAME
+
+APP_SERVER_URI=$(../cdk-output-parser.sh NeOneAppCdkStack$AREA_NAME appServerUri cdk-app-placeholder-outputs.json)
+NEW_LOGISTICS_URI="https://${APP_SERVER_URI}/logistics-objects/_data-holder"
+sed -i "s/$CURRENT_LOGISTICS_URI/$NEW_LOGISTICS_URI/g" ../../docker-compose/keycloak/neone-realm.json
 
 cdk deploy --require-approval never -c envName=$AREA_NAME --parameters appContainerRepositoryName=$APP_REPOS_NAME \
     --parameters authContainerRepositoryName=$AUTH_REPOS_NAME \
     --parameters dbReadEndpoint=$DB_READ_ENDPOINT \
     --parameters dbWriteEndpoint=$DB_WRITE_ENDPOINT \
+    --parameters clientSecret=$CURRENT_SECRET \
+    --parameters serverHost=$APP_SERVER_URI \
+    --parameters serverPort=443 \
+    --parameters serverProtocol=https \
     --trace --outputs-file ./cdk-app-outputs.json
