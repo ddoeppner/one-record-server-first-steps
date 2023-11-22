@@ -91,7 +91,7 @@ export class NeOneServices extends Construct {
                     "LO_ID_CONFIG_HOST": props.serverHost,
                     "LO_ID_CONFIG_PORT": props.serverPort,
                     "LO_ID_CONFIG_SCHEME": props.serverProtocol,
-                    "AUTH_VALID_ISSUERS_LOCAL": "http://" + authService.serviceUrl + "/realms/neone",
+                    "AUTH_VALID_ISSUERS_LOCAL": "https://" + authService.serviceUrl + "/realms/neone",
                     "AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION": "https://" + authService.serviceUrl + "/realms/neone/protocol/openid-connect/certs",
                     "QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL": "https://" + authService.serviceUrl + "/realms/neone",
                     "QUARKUS_OIDC_CLIENT_CLIENT_ID": "neone-client",
