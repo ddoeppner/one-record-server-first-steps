@@ -73,7 +73,7 @@ export class NeOneServices extends Construct {
         healthCheck: apprunner.HealthCheck.http({
             healthyThreshold: 5,
             path: (tagName === envName) ? '/health' : "/",
-            unhealthyThreshold: 30,
+            unhealthyThreshold: 20,
         }),
 
     });
