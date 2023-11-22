@@ -68,12 +68,26 @@ docker build -t $AUTH_REPOS_NAME:$AREA_NAME -f ../Dockerfile.auth ../..
 docker tag $AUTH_REPOS_NAME:$AREA_NAME $AUTH_REPOS_URI:$AREA_NAME
 docker push $AUTH_REPOS_URI:$AREA_NAME
 
-cdk deploy --require-approval never -c envName=$AREA_NAME --parameters appContainerRepositoryName=$APP_REPOS_NAME \
-    --parameters authContainerRepositoryName=$AUTH_REPOS_NAME \
-    --parameters dbReadEndpoint=$DB_READ_ENDPOINT \
-    --parameters dbWriteEndpoint=$DB_WRITE_ENDPOINT \
-    --parameters clientSecret=$CURRENT_SECRET \
-    --parameters serverHost=$APP_SERVER_URI \
-    --parameters serverPort=443 \
-    --parameters serverProtocol=https \
-    --trace --outputs-file ./cdk-app-outputs.json
+n=0
+until [ $n -ge 5 ]
+do
+
+    cdk deploy --require-approval never -c envName=$AREA_NAME --parameters appContainerRepositoryName=$APP_REPOS_NAME \
+        --parameters authContainerRepositoryName=$AUTH_REPOS_NAME \
+        --parameters dbReadEndpoint=$DB_READ_ENDPOINT \
+        --parameters dbWriteEndpoint=$DB_WRITE_ENDPOINT \
+        --parameters clientSecret=$CURRENT_SECRET \
+        --parameters serverHost=$APP_SERVER_URI \
+        --parameters serverPort=443 \
+        --parameters serverProtocol=https \
+        --trace --outputs-file ./cdk-app-outputs.json
+
+    TEST_STRING=$(curl $APP_SERVER_URI)
+
+    if [[ $TEST_STRING == *Hello* ]]; then
+        n=$((n+1)) 
+    else 
+        break
+    fi
+    
+done
