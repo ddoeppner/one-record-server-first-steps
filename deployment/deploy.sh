@@ -59,13 +59,14 @@ cdk deploy --require-approval never -c envName=$AREA_NAME -c tagName=placeholder
     --parameters clientSecret=$CURRENT_SECRET \
     --trace --outputs-file ./cdk-app-placeholder-outputs.json
 
+APP_SERVER_URI=$(../cdk-output-parser.sh NeOneAppCdkStack$AREA_NAME appServerUri cdk-app-placeholder-outputs.json)
+NEW_LOGISTICS_URI="https://${APP_SERVER_URI}/logistics-objects/_data-holder"
+
+sed -i "s#$CURRENT_LOGISTICS_URI#$NEW_LOGISTICS_URI#g" ../../docker-compose/keycloak/neone-realm.json
+
 docker build -t $AUTH_REPOS_NAME:$AREA_NAME -f ../Dockerfile.auth ../..
 docker tag $AUTH_REPOS_NAME:$AREA_NAME $AUTH_REPOS_URI:$AREA_NAME
 docker push $AUTH_REPOS_URI:$AREA_NAME
-
-APP_SERVER_URI=$(../cdk-output-parser.sh NeOneAppCdkStack$AREA_NAME appServerUri cdk-app-placeholder-outputs.json)
-NEW_LOGISTICS_URI="https://${APP_SERVER_URI}/logistics-objects/_data-holder"
-sed -i "s/$CURRENT_LOGISTICS_URI/$NEW_LOGISTICS_URI/g" ../../docker-compose/keycloak/neone-realm.json
 
 cdk deploy --require-approval never -c envName=$AREA_NAME --parameters appContainerRepositoryName=$APP_REPOS_NAME \
     --parameters authContainerRepositoryName=$AUTH_REPOS_NAME \
