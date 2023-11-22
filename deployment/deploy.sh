@@ -82,7 +82,7 @@ do
         --parameters serverProtocol=https \
         --trace --outputs-file ./cdk-app-outputs.json
 
-    TEST_STRING=$(curl $APP_SERVER_URI)
+    TEST_STRING=$(curl "https://${APP_SERVER_URI}")
 
     if [[ $TEST_STRING == *Hello* ]]; then
         n=$((n+1)) 
