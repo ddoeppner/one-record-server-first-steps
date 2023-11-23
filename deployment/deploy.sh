@@ -86,7 +86,9 @@ do
 
     if [[ $TEST_STRING == *Hello* ]]; then
         n=$((n+1)) 
+        echo "Attempt $n"
     else 
+        echo "Success"
         break
     fi
     
