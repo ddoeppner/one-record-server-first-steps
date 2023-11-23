@@ -10,9 +10,9 @@ services:
             - LO_ID_CONFIG_HOST=localhost
             - LO_ID_CONFIG_PORT=8080
             - LO_ID_CONFIG_SCHEME=http
-            - AUTH_VALID_ISSUERS_LOCAL=http://localhost:8089/realms/neone
-            - AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION=http://keycloak:8089/realms/neone/protocol/openid-connect/certs
-            - QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL=http://keycloak:8089/realms/neone
+            - AUTH_VALID_ISSUERS_LOCAL=http://localhost:8989/realms/neone
+            - AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION=http://keycloak:8989/realms/neone/protocol/openid-connect/certs
+            - QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL=http://keycloak:8989/realms/neone
             - QUARKUS_OIDC_CLIENT_CLIENT_ID=neone-client
             - QUARKUS_OIDC_CLIENT_CREDENTIALS_SECRET=lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY                                                                                     
             - QUARKUS_HTTP_PORT=8080            
@@ -30,10 +30,10 @@ services:
     keycloak:
         image: quay.io/keycloak/keycloak:22.0
         ports:
-            - "8089:8089"
+            - "8989:8989"
         healthcheck:
             # because curl was removed in keycloak 21+
-            test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8089;echo -e \"GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n\" >&3;grep \"HTTP/1.1 200 OK\" <&3"]
+            test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8989;echo -e \"GET /health/ready HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n\" >&3;grep \"HTTP/1.1 200 OK\" <&3"]
             interval: 3s
             timeout: 2s
             start_period: 5s
@@ -42,7 +42,7 @@ services:
             KEYCLOAK_ADMIN: admin
             KEYCLOAK_ADMIN_PASSWORD: admin
             KC_HEALTH_ENABLED: true
-            KC_HTTP_PORT: 8089                      
+            KC_HTTP_PORT: 8989                      
         volumes:
             - "./keycloak/neone-realm.json:/opt/keycloak/data/import/neone-realm.json"
         command:

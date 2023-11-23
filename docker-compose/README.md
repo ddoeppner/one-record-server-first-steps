@@ -9,7 +9,7 @@ docker-compose up -d
 |-|-|-|
 | ne-one server | [ne-one server](https://git.openlogisticsfoundation.org/wg-digitalaircargo/ne-one) | http://localhost:8080 |
 | graphdb | GraphDB database as database backend for ne-one server | http://localhost:7200 |
-| keycloak | Identity Provider for ne-one server to authenticate ONE Record clients and to obtain tokens for outgoing requests | http://localhost:8089 |
+| keycloak | Identity Provider for ne-one server to authenticate ONE Record clients and to obtain tokens for outgoing requests | http://localhost:8989 |
 
 # Alternative supporting services
 
