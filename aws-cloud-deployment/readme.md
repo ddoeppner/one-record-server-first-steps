@@ -91,8 +91,8 @@ chmod +x deploy.sh
 
 To have you up and running we prepared a Postman collection. You will need to install Postman or a compatible software in order to use it.
 
-- [Download the Postman Collection here](./assets/postman/Hackathon.postman_collection.json)
-- [Download the Postman Environment here](./assets/postman/Hackathon.postman_environment.json)
+- [Download the Postman Collection here](https://raw.githubusercontent.com/ddoeppner/one-record-server-first-steps/main/aws-cloud-deployment/assets/postman/Hackathon.postman_collection.json)
+- [Download the Postman Environment here](https://raw.githubusercontent.com/ddoeppner/one-record-server-first-steps/main/aws-cloud-deployment/assets/postman/Hackathon.postman_environment.json)
 - Import the Environment in Postman
 ![Image9](./assets/image/image9.PNG)
 - Import the Collection in Postman
