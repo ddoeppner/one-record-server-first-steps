@@ -87,28 +87,67 @@ chmod +x deploy.sh
 
 ![Image12](./assets/image/image12.PNG)
 
+6. Copy the address in your browser to start NE:ONE Play (it might takes few seconds at the first start)
+
 ## Postman Collection
 
 To have you up and running we prepared a Postman collection. You will need to install Postman or a compatible software in order to use it.
 
-- [Download the Postman Collection here.](./assets/postman/Hackathon.postman_collection.json) It will open a new github page, use the download button to get the file
-- [Download the Postman Environment here](./assets/postman/Hackathon.postman_environment.json). It will open a new github page, use the download button to get the file
-- Import the Environment in Postman
+1. [Download the Postman Collection here.](./assets/postman/Hackathon.postman_collection.json) It will open a new github page, use the download button to get the file
+
+2. [Download the Postman Environment here](./assets/postman/Hackathon.postman_environment.json). It will open a new github page, use the download button to get the file
+
+3. Import the Environment in Postman
+
 ![Image9](./assets/image/image9.PNG)
-- Import the Collection in Postman
+
+4. Import the Collection in Postman
+
 ![Image8](./assets/image/image8.PNG)
-- In the Environments tab, select Hackathon environment and set the baseUrlKeyCloak to the default domain of the neoneauthapp_dev of the APP Runner.
+
+5. In the Environments tab, select Hackathon environment and set the baseUrlKeyCloak to the default domain of the neoneauthapp_dev of the APP Runner.
+
 ![Image10](./assets/image/image10.PNG)
-- Set the baseUrlShipper,baseUrlForwarder and baseUrlAirline to the to the default domain of the neoneserverapp_dev of the APP Runner. **Please add ':443' ad the end of the host** (i.e. host:443) and remove the **/** at the end.
+
+6. Set the baseUrlShipper,baseUrlForwarder and baseUrlAirline to the to the default domain of the neoneserverapp_dev of the APP Runner. **Please add ':443' ad the end of the host** (i.e. host:443) and remove the **/** at the end.
+
 ![Image14](./assets/image/image14.PNG)
-- Select Collections on the right menu and open the Hackathon collection already imported
-- Use the Token Request call to generate and access token
+
+7. Select Collections on the right menu and open the Hackathon collection already imported
+
+8. Use the Token Request call to generate and access token
+
 ![Image16](./assets/image/image16.PNG)
-- Copy the access token (it might be a long string, please copy the full content) in the Authorization tab of the Get ServerInformation and run the call
+
+9. Copy the access token (it might be a long string, please copy the full content) in the Authorization tab of the Get ServerInformation and run the call
+
 ![Image15](./assets/image/image15.PNG)
-- If everything is setup correctly, you will see the server information of the AWS server
-- Copy the access token in Authentication tab of the Example Workflow folder
-- Run the calls one by one to create the objects. The order is important as each call is connected to the previous one.
+
+10. If everything is setup correctly, you will see the server information of the AWS server
+
+11. Copy the access token in Authentication tab of the Example Workflow folder
+
+12. Run the calls one by one to create the objects. The order is important as each call is connected to the previous one.
+
+## Add NE:ONE server into NE:ONE Play
+
+1. Copy the default domain of the container called "neoneplayapp_dev" in APP Runner
+
+2. Paste the domain in your browser to start NE:ONE Play
+
+2. Click on the setting button in the top-right corner (cog icon)
+
+3. Add your server following this instruction:
+
+    - Organization Name: <Choose a name (any string is accepted)>
+    - Protocol: https
+    - Host: <Use the default domain of neoneserverapp_dev in APP Runner followed by **:443** (i.e. mm3ykcxk4j.us-east-1.awsapprunner.com:443)>  
+    - Token : <Use the postman collection to generate a token and copy it here (follow the previous paragraph)>
+    - Color : pick up a random color
+
+    ![Image17](./assets/image/image17.PNG)
+
+    - Now you can start using NE:ONE Play. 
 
 ## Issues
 
