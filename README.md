@@ -19,8 +19,7 @@ This tutorials covers the following topics:
 - Creating Logistics Objects
 - Updating Logistics Objects
 
-The tutorial is based on the ONE Record API specification v2.0.0, ONE Record API data model v3.0.0, and the NE:ONE Server v1.1.0.
-
+The tutorial is based on the ONE Record API specification v2.0.0, ONE Record data model v3.0.0, and the NE:ONE Server v1.1.0.
 
 ### Important Terms and Concepts
 
@@ -34,7 +33,6 @@ The tutorial is based on the ONE Record API specification v2.0.0, ONE Record API
 | **client secret** | Secret known only to the app/daemon/client and the authentication server. Comparable to a password. | FwY8Q~WkDKF6JaFjH3_6HeM6BrGAaefPkcWvkbQm |
 | **scope** | Limits an application's access. Not necessary for ONE Record authentication, but required by some authentication servers. | https://<tenant-name>.onmicrosoft.com/<api-app-id-uri>/access_as_application |
 | **access token** | An access token / ID token is a JSON Web Token (JWT) that contains authenticated user information, issued by an authorization server as part of the authentication response. This needs to be sent with every ONE Record request to authenticate the client | eyJhbGciOiJSUzI1...zKUHw |
-
 
 ## Start your local ONE Record development environment
 
@@ -68,7 +66,7 @@ The tutorial is based on the ONE Record API specification v2.0.0, ONE Record API
     ✔ Container docker-compose-graph-db-setup-1 Started 0.0s
    ```
 5) Try to access the ONE Record Server by  http://localhost:8080 using your favorite browser. 
-   You should see a HTTP Error 401, because you didnt authenticate yet.
+   You should see a HTTP Error 401, because you did not authenticate yet. But this confirms that the ONE Record Server is up and running.
 
 ## Exchange data with your ONE Record server
 
@@ -158,7 +156,6 @@ The tutorial is based on the ONE Record API specification v2.0.0, ONE Record API
 ![Update Data Owner - Part 1](assets/Update-Data-Owner-1.png)
 ![Update Data Owner - Part 2](assets/Update-Data-Owner-2b.png)
 ![Update Data Owner - Part 3](assets/Update-Data-Owner-3b.png)
-
 
 ## Supporting documents and further readings
 
