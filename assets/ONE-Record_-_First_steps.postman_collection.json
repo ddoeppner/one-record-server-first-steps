@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "506f88a8-e14b-42b1-b872-63864d2a1794",
-		"name": "ONE Record Hackathon Servers: First Steps",
+		"name": "ONE Record: First Steps",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28113023"
 	},
@@ -22,7 +22,8 @@
 						{
 							"key": "scope",
 							"value": "<scope>",
-							"type": "default"
+							"type": "default",
+							"disabled": true
 						},
 						{
 							"key": "client_id",
