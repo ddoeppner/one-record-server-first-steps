@@ -19,6 +19,9 @@ services:
             - QUARKUS_REDIS_HOSTS=redis://localhost:6379
             - AUTO_ACCEPT_ACTION_REQUESTS=true
             - BLOBSTORE_CREATE_BUCKET=false
+            - QUARKUS_HTTP_CORS=true
+            - QUARKUS_HTTP_CORS_ORIGINS=/.*/
+            - QUARKUS_HTTP_CORS_EXPOSED_HEADERS=location,revision,latest-revision,type            
         depends_on:
            keycloak:
             condition: service_healthy
