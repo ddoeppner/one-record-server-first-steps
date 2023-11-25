@@ -28,7 +28,7 @@ In order to create a NE:ONE server on AWS, please follow the next steps:
 
 3. Now you have access the AWS console, from here you can check all AWS tools.
 
-4. Seach APP Runner and click on it. Check if a service is already running. In case something is running already **please use the servers without creating a new one**. Jump to the last step of the guide (step 10).
+4. Seach APP Runner and click on it. Check if a service is already running. In case something is running already **please use the servers without creating a new one**. Jump to the last step of the guide (step 10). If you enter in Cloud 9 and a script is already running **Please wait the end and jump to the last step, someone is already deploying server for you**
 
 5. Search Cloud 9 in the search bar at the top, and click on it
 
@@ -66,11 +66,11 @@ chmod +x deploy.sh
 
 In order to create a NE:ONE Play instance on AWS, please follow the next steps:
 
-1. Seach APP Runner and click on it. Check if a service is already running. In case something is running already **please use the servers without creating a new one**. Jump to the last step of the guide (step 7).
+1. Seach APP Runner and click on it. Check if a service is already running. In case something is running already **please use the servers without creating a new one**. Jump to the last step of the guide. If you enter in Cloud 9 and a script is already running **Please wait the end and jump to the last step, someone is already deploying server for you**
  
-2. Follow the NE:ONE server guide until Cloud 9 is started (step 5)
+3. Follow the NE:ONE server guide until Cloud 9 is started (step 5)
 
-3. Once Cloud 9 is started, use the terminal at the bottom to run the following commands:
+4. Once Cloud 9 is started, use the terminal at the bottom to run the following commands:
 
 ``` 
 git clone -b feature/aws https://github.com/aloccid-iata/neoneplay
