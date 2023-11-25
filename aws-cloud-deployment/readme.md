@@ -28,15 +28,17 @@ In order to create a NE:ONE server on AWS, please follow the next steps:
 
 3. Now you have access the AWS console, from here you can check all AWS tools.
 
-4. Search Cloud 9 in the search bar at the top, and click on it
+4. Seach APP Runner and click on it. Check if a service is already running. In case something is running already **please use the servers without creating a new one**. Jump to the last step of the guide (step 10).
+
+5. Search Cloud 9 in the search bar at the top, and click on it
 
 ![Image4](./assets/image/image4.PNG)
 
-5. In the Cloud 9 page, click "Open" under "Cloud9 IDE" 
+6. In the Cloud 9 page, click "Open" under "Cloud9 IDE" 
 
 ![Image5](./assets/image/image5.PNG)
 
-6. Once Cloud 9 is started, use the terminal at the bottom to run the following commands:
+7. Once Cloud 9 is started, use the terminal at the bottom to run the following commands:
 
 ``` 
 git clone -b feature/aws https://github.com/ddoeppner/one-record-server-first-steps.git
@@ -47,26 +49,28 @@ chmod +x deploy.sh
 
 ![Image7](./assets/image/image7.PNG)
 
-7. Wait around 20/30 minutes until the deployment finished
+8. Wait around 20/30 minutes until the deployment finished
 
-8. Once the deployment is finished (the terminal becomes available), go back to the AWS console. Search for APP Runner and click on it. 
+9. Once the deployment is finished (the terminal becomes available), go back to the AWS console. Search for APP Runner and click on it. 
 
 ![Image11](./assets/image/image11.PNG)
 
-9. In APP Runner you will find two running containers
+10. In APP Runner you will find two running containers
     - neoneserverapp_dev : In the default domain you will find the address of the NE:ONE Server
     - neoneauthapp_dev : In the default domain you will find the address of the Key cloak Server
 ![Image12](./assets/image/image12.PNG)
 
-10. When using the default domain please add always :443 at the end.
+11. When using the default domain please add always :443 at the end.
     
 ## AWS NE:ONE Play Setup
 
 In order to create a NE:ONE Play instance on AWS, please follow the next steps:
 
-1. Follow the NE:ONE server guide until Cloud 9 is started (step 5)
+1. Seach APP Runner and click on it. Check if a service is already running. In case something is running already **please use the servers without creating a new one**. Jump to the last step of the guide (step 7).
+ 
+2. Follow the NE:ONE server guide until Cloud 9 is started (step 5)
 
-2. Once Cloud 9 is started, use the terminal at the bottom to run the following commands:
+3. Once Cloud 9 is started, use the terminal at the bottom to run the following commands:
 
 ``` 
 git clone -b feature/aws https://github.com/aloccid-iata/neoneplay
@@ -75,19 +79,19 @@ chmod +x deploy.sh
 ./deploy.sh
 ```
 
-3. Wait around 20/30 minutes until the deployment finished
+4. Wait around 20/30 minutes until the deployment finished
 
-4. Once the deployment is finished, go back to the AWS console. Search for APP Runner and click on it.
+5. Once the deployment is finished, go back to the AWS console. Search for APP Runner and click on it.
 
 ![Image11](./assets/image/image11.PNG)
 
-5. In APP Runner you will find a running container:
+6. In APP Runner you will find a running container:
 
     - neoneplayapp_dev : In the default domain you will find the address of the NE:ONE Play instance
 
 ![Image12](./assets/image/image12.PNG)
 
-6. Copy the address in your browser to start NE:ONE Play (it might takes few seconds at the first start)
+7. Copy the address in your browser to start NE:ONE Play (it might takes few seconds at the first start)
 
 ## Postman Collection
 
