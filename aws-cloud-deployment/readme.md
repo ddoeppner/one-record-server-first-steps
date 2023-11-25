@@ -74,7 +74,7 @@ In order to create a NE:ONE Play instance on AWS, please follow the next steps:
 
 ``` 
 git clone -b feature/aws https://github.com/aloccid-iata/neoneplay
-cd one-record-server-first-steps/deployment
+cd neoneplay/deployment
 chmod +x deploy.sh
 ./deploy.sh
 ```
