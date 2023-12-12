@@ -1,0 +1,1641 @@
+{
+	"info": {
+		"_postman_id": "2759634a-d11c-4a95-be5b-7d9ff2cdad7e",
+		"name": "Hackathon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28309429"
+	},
+	"item": [
+		{
+			"name": "Example Workflow",
+			"item": [
+				{
+					"name": "Shipper",
+					"item": [
+						{
+							"name": "Product iPhone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"productiPhone\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Product\",\n    \"cargo:description\": \"iPhone PRO 14\",\n    \"cargo:hsCode\": \"123456\",\n    \"cargo:uniqueIdentifier\": \"A2650\",\n    \"cargo:manufacturer\": {\n        \"@type\": \"cargo:Company\",\n        \"cargo:name\": \"Apple Inc.\"\n    }\n    /* Add it with a patch after the item is created\n    \"cargo:descriptionForItems\": {\n        \"@type\": \"cargo:Item\",\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{itemId}}\"\n    }*/\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/logistics-objects",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product Rolex",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"productRolex\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Product\",\n    \"cargo:description\": \"Rolex Cosmograph Daytona\",\n    \"cargo:uniqueIdentifier\": \"M126506-0001\",\n    \"cargo:manufacturer\": {\n        \"@type\": \"cargo:Company\",\n        \"cargo:name\": \"Rolex SA\"\n    },\n    \"cargo:hsCode\": \"123456\"\n    /* Add it with a patch after the item is created\n    \"cargo:descriptionForItems\": {\n        \"@type\": \"cargo:Item\",\n        \"@id\": \"{{baseUrl}}/logistics-objects/{{itemId}}\"\n    }*/\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/logistics-objects",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Item iPhone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"itemiPhone\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Item\",\n    \"cargo:itemQuantity\": {\n        \"@type\": \"cargo:Value\",\n        \"cargo:unit\": \"Pieces\",\n        \"cargo:numericalValue\": 250\n    },\n    \"cargo:describedByProduct\": {\n        \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{productiPhone}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/logistics-objects",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Item Rolex",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"itemRolex\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Item\",\n    \"cargo:itemQuantity\": {\n        \"@type\": \"cargo:Value\",\n        \"cargo:unit\": \"Pieces\",\n        \"cargo:numericalValue\": 100\n    },\n    \"cargo:describedByProduct\": {\n        \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{productRolex}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/logistics-objects",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Piece iPhone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"pieceiPhone\", pm.response.headers.get(\"Location\").split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": true,\n    \"cargo:goodsDescription\": \"Pallet of iPhones\",\n    \"cargo:upid\": \"FF-284724-0\",\n    \"cargo:containedItems\": [{\n        \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{itemiPhone}}\"\n    }],\n    \"cargo:handlingInstructions\": [\n        {\n            \"@type\": \"cargo:HandlingInstructions\",\n            \"cargo:serviceType\": \"SPH\",\n            \"cargo:serviceDescription\": \"Valuable Cargo\",\n            \"cargo:serviceTypeCode\": \"VAL\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/logistics-objects",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Piece Rolex",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"pieceRolex\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Piece\",\n    \"cargo:coload\": true,\n    \"cargo:goodsDescription\": \"Pallet of Rolex\",\n    \"cargo:upid\": \"FF-029381-0\",\n    \"cargo:containedItems\": [{\n        \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{itemRolex}}\"\n    }],\n    \"cargo:handlingInstructions\": [\n        {\n            \"@type\": \"cargo:HandlingInstructions\",\n            \"cargo:serviceType\": \"SPH\",\n            \"cargo:serviceDescription\": \"Valuable Cargo\",\n            \"cargo:serviceTypeCode\": \"VAL\"\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/logistics-objects",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Forwarder",
+					"item": [
+						{
+							"name": "Create a Shipment iPhone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"shipmentiPhone\", pm.response.headers.get(\"Location\").split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Shipment of 250 iPhone PRO 14\",\n    \"cargo:totalGrossWeight\": {\n        \"@type\": \"cargo:Value\",\n        \"cargo:unit\": \"KG\",\n        \"cargo:numericalValue\": 50\n    },\n    \"cargo:totalDimensions\": {\n        \"cargo:height\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 3\n        },\n        \"cargo:length\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 2\n        },\n        \"cargo:width\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 1\n        },\n        \"cargo:volume\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"MC\",\n            \"cargo:numericalValue\": 6\n        }\n    },\n    \"cargo:shipmentOfPieces\": [\n        {\n            \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{pieceiPhone}}\"\n        }\n    ],\n    \"cargo:involvedParties\": [\n        {\n            \"@type\": \"cargo:Party\",\n            \"cargo:role\": \"Shipper\",\n            \"cargo:organization\": {\n                \"@id\": \"{{baseUrlShipper}}/logistics-objects/_data-holder\"\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlForwarder}}/logistics-objects",
+									"host": [
+										"{{baseUrlForwarder}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Shipment ID to piece iPhone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test response code\r",
+											"pm.test(\"Response Status code is 201\", () => {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location is present\", () => {\r",
+											"    pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type is present\", () => {\r",
+											"    pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"changeiPhone\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\n    },\n    \"@type\": \"api:Change\",\n    \"api:hasLogisticsObject\": {\n        \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{pieceiPhone}}\"\n    },\n    \"api:hasDescription\": \"Add Part of Shipment\",\n    \"api:hasOperation\": [\n        {\n            \"@type\": \"api:Operation\",\n            \"api:op\": {\n                \"@id\": \"api:ADD\"\n            },\n            \"api:s\": \"{{baseUrlShipper}}/logistics-objects/{{pieceiPhone}}\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#partOfShipment\",\n            \"api:o\": [\n                {\n                    \"@type\": \"api:OperationObject\",\n                    \"api:hasDatatype\": \"https://onerecord.iata.org/ns/cargo#Shipment\",\n                    \"api:hasValue\": \"{{baseUrlForwarder}}/logistics-objects/{{shipmentiPhone}}\"\n                }\n            ]\n        }\n    ],\n    \"api:hasRevision\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#positiveInteger\",\n        \"@value\": \"1\"\n    }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/logistics-objects/:logisticObjectId",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"logistics-objects",
+										":logisticObjectId"
+									],
+									"variable": [
+										{
+											"key": "logisticObjectId",
+											"value": "{{pieceiPhone}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validate Change Request iPhone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/action-requests/:changeRequest?status=REQUEST_ACCEPTED",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"action-requests",
+										":changeRequest"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "REQUEST_ACCEPTED"
+										}
+									],
+									"variable": [
+										{
+											"key": "changeRequest",
+											"value": "{{changeiPhone}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Shipment Rolex",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"shipmentRolex\", pm.response.headers.get(\"Location\").split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Shipment of 100 Rolex Daytona Cosmograph\",\n    \"cargo:totalGrossWeight\": {\n        \"@type\": \"cargo:Value\",\n        \"cargo:unit\": \"KG\",\n        \"cargo:numericalValue\": 15\n    },\n    \"cargo:totalDimensions\": {\n        \"cargo:height\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 0.5\n        },\n        \"cargo:length\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 0.5\n        },\n        \"cargo:width\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 0.5\n        },\n        \"cargo:volume\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"MC\",\n            \"cargo:numericalValue\": 0.125\n        }\n    },\n    \"cargo:shipmentOfPieces\": [\n        {\n            \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{pieceRolex}}\"\n        }\n    ],\n    \"cargo:involvedParties\": [\n        {\n            \"@type\": \"cargo:Party\",\n            \"cargo:role\": \"Shipper\",\n            \"cargo:organization\": {\n                \"@id\": \"{{baseUrlShipper}}/logistics-objects/_data-owner\"\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlForwarder}}/logistics-objects",
+									"host": [
+										"{{baseUrlForwarder}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Shipment ID to piece Rolex",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test response code\r",
+											"pm.test(\"Response Status code is 201\", () => {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location is present\", () => {\r",
+											"    pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type is present\", () => {\r",
+											"    pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"changeRolex\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\",\n        \"api\": \"https://onerecord.iata.org/ns/api#\"\n    },\n    \"@type\": \"api:Change\",\n    \"api:hasLogisticsObject\": {\n        \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{pieceRolex}}\"\n    },\n    \"api:hasDescription\": \"Add Part of Shipment Rolex\",\n    \"api:hasOperation\": [\n        {\n            \"@type\": \"api:Operation\",\n            \"api:op\": {\n                \"@id\": \"api:ADD\"\n            },\n            \"api:s\": \"{{baseUrlShipper}}/logistics-objects/{{pieceRolex}}\",\n            \"api:p\": \"https://onerecord.iata.org/ns/cargo#partOfShipment\",\n            \"api:o\": [\n                {\n                    \"@type\": \"api:OperationObject\",\n                    \"api:hasDatatype\": \"https://onerecord.iata.org/ns/cargo#Shipment\",\n                    \"api:hasValue\": \"{{baseUrlForwarder}}/logistics-objects/{{shipmentRolex}}\"\n                }\n            ]\n        }\n    ],\n    \"api:hasRevision\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#positiveInteger\",\n        \"@value\": \"1\"\n    }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/logistics-objects/:logisticObjectId",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"logistics-objects",
+										":logisticObjectId"
+									],
+									"variable": [
+										{
+											"key": "logisticObjectId",
+											"value": "{{pieceRolex}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validate Change Request Rolex",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlShipper}}/action-requests/:changeRequest?status=REQUEST_ACCEPTED",
+									"host": [
+										"{{baseUrlShipper}}"
+									],
+									"path": [
+										"action-requests",
+										":changeRequest"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "REQUEST_ACCEPTED"
+										}
+									],
+									"variable": [
+										{
+											"key": "changeRequest",
+											"value": "{{changeRolex}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Consolidated Shipment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"conShipment\", pm.response.headers.get(\"Location\").split(\"/\").pop());"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Shipment\",\n    \"cargo:goodsDescription\": \"Shipment of 250 iPhone PRO 14 and 100 Rolex Daytona - Consolidation\",\n    \"cargo:totalGrossWeight\": {\n        \"@type\": \"cargo:Value\",\n        \"cargo:unit\": \"KG\",\n        \"cargo:numericalValue\": 65\n    },\n    \"cargo:totalDimensions\": {\n        \"cargo:height\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 1.5\n        },\n        \"cargo:length\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 2.5\n        },\n        \"cargo:width\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"M\",\n            \"cargo:numericalValue\": 3.5\n        },\n        \"cargo:volume\": {\n            \"@type\": \"cargo:Value\",\n            \"cargo:unit\": \"MC\",\n            \"cargo:numericalValue\": 6.125\n        }\n    },\n    \"cargo:shipmentOfPieces\": [\n        {\n            \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{pieceRolex}}\"\n        },\n        {\n            \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{pieceiPhone}}\"\n        }\n    ],\n    \"cargo:involvedParties\": [\n        {\n            \"@type\": \"cargo:Party\",\n            \"cargo:role\": \"Freight Forwarder\",\n            \"cargo:organization\": {\n                \"@id\": \"{{baseUrlForwarder}}/logistics-objects/_data-owner\"\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlForwarder}}/logistics-objects",
+									"host": [
+										"{{baseUrlForwarder}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a HWB Rolex",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"hwbRolex\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Waybill\",\n    \"cargo:waybillNumber\": \"53729073\",\n    \"cargo:waybillType\": \"house\",\n    \"cargo:shipment\": {\n        \"@id\": \"{{baseUrlForwarder}}/logistics-objects/{{shipmentRolex}}\"\n    },\n    \"cargo:involvedParties\": [\n        {\n            \"@type\": \"cargo:Party\",\n            \"cargo:role\": \"Freight Forwarder\",\n            \"cargo:organization\": {\n                \"@id\": \"{{baseUrlForwarder}}/logistics-objects/_data-holder\"\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlForwarder}}/logistics-objects",
+									"host": [
+										"{{baseUrlForwarder}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a HWB iPhone",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"hwbiPhone\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Waybill\",\n    \"cargo:waybillNumber\": \"53729072\",\n    \"cargo:waybillType\": \"house\",\n    \"cargo:shipment\": {\n        \"@id\": \"{{baseUrlForwarder}}/logistics-objects/{{shipmentiPhone}}\"\n    },\n    \"cargo:involvedParties\": [\n        {\n            \"@type\": \"cargo:Party\",\n            \"cargo:role\": \"Freight Forwarder\",\n            \"cargo:organization\": {\n                \"@id\": \"{{baseUrlForwarder}}/logistics-objects/_data-holder\"\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlForwarder}}/logistics-objects",
+									"host": [
+										"{{baseUrlForwarder}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Master Waybill",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"mwb\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Waybill\",\n    \"cargo:waybillPrefix\": \"999\",\n    \"cargo:waybillNumber\": \"53729071\",\n    \"cargo:waybillType\": \"master\",\n    \"cargo:shipment\": {\n        \"@id\": \"{{baseUrlForwarder}}/logistics-objects/{{conShipment}}\"\n    },\n    \"cargo:houseWaybills\": [\n        {\n            \"@id\": \"{{baseUrlForwarder}}/logistics-objects/{{hwbRolex}}\"\n        },\n        {\n            \"@id\": \"{{baseUrlForwarder}}/logistics-objects/{{hwbiPhone}}\"\n        }\n    ],\n    \"cargo:involvedParties\": [\n        {\n            \"@type\": \"cargo:Party\",\n            \"cargo:role\": \"Airline\",\n            \"cargo:organization\": {\n                \"@id\": \"{{baseUrlAirline}}/logistics-objects/_data-holder\"\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlForwarder}}/logistics-objects",
+									"host": [
+										"{{baseUrlForwarder}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Carrier",
+					"item": [
+						{
+							"name": "Create a Person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"contactPerson\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Actor\",\n    \"cargo:salutation\": \"DR\",\n    \"cargo:lastName\": \"Sauv\",\n    \"cargo:firstName\": \"David\",\n    \"cargo:contactRole\": \"Pilot\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlAirline}}/logistics-objects",
+									"host": [
+										"{{baseUrlAirline}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Organization",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"moonAir\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Organization\",\n    \"cargo:name\": \"Moon Airlines\",\n    \"cargo:contactPersons\": {\n        \"@id\": \"{{baseUrlAirline}}/logistics-objects/{{contactPerson}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlAirline}}/logistics-objects",
+									"host": [
+										"{{baseUrlAirline}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Transport Means",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"transportMeans\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:TransportMeans\",\n    \"cargo:vehicleModel\": \"Falcon 10X\",\n    \"cargo:vehicleRegistration\": \"F-S3XY\",\n    \"cargo:vehicleType\": \"DFX\",\n    \"cargo:transportOrganization\": {\n        \"@id\": \"{{baseUrlAirline}}/logistics-objects/{{moonAir}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlAirline}}/logistics-objects",
+									"host": [
+										"{{baseUrlAirline}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Transport Movement",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											"pm.collectionVariables.set(\"transportMovement\", pm.response.headers.get(\"Location\").split(\"/\").pop());\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:TransportMovement\",\n    \"cargo:arrivalLocation\": {\n        \"@type\": \"cargo:Location\",\n        \"cargo:locationType\": \"airport\",\n        \"cargo:code\": \"GVA\"\n    },\n    \"cargo:departureLocation\": {\n        \"@type\": \"cargo:Location\",\n        \"cargo:locationType\": \"airport\",\n        \"cargo:code\": \"SFO\"\n    },\n    \"cargo:operatingTransportMeans\": {\n        \"@id\": \"{{baseUrlAirline}}/logistics-objects/{{transportMeans}}\"\n    },\n    \"cargo:transportIdentifier\": \"XB123\",\n    \"cargo:movementTimes\": [\n        {\n            \"@type\": \"cargo:MovementTime\",\n            \"cargo:movementMilestone\": \"SD\",\n            \"cargo:movementTimestamp\": {\n                \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\n                \"@value\": \"2023-09-06T05:10:00Z\"\n            }\n        },\n        {\n            \"@type\": \"cargo:MovementTime\",\n            \"cargo:movementMilestone\": \"SA\",\n            \"cargo:movementTimestamp\": {\n                \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\n                \"@value\": \"2023-09-06T14:10:00Z\"\n            }\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlAirline}}/logistics-objects",
+									"host": [
+										"{{baseUrlAirline}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a Loading Activity",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Location header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Location\");\r",
+											"});\r",
+											"pm.test(\"Type header is present\", () => {\r",
+											"  pm.response.to.have.header(\"Type\");\r",
+											"});\r",
+											"\r",
+											"var req = JSON.parse(request.data);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									},
+									{
+										"key": "Accept",
+										"value": "application/ld+json; version=2.0.0-dev",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"@context\": {\n        \"cargo\": \"https://onerecord.iata.org/ns/cargo#\"\n    },\n    \"@type\": \"cargo:Loading\",\n    \"cargo:actionTimeType\": \"Scheduled\",\n    \"cargo:actionStartTime\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\n        \"@value\": \"2023-09-06T04:50:00Z\"\n    },\n    \"cargo:actionEndTime\": {\n        \"@type\": \"http://www.w3.org/2001/XMLSchema#dateTime\",\n        \"@value\": \"2023-09-06T05:00:00Z\"\n    },\n    \"cargo:loadedPieces\": [\n        {\n            \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{pieceRolex}}\"\n        },\n        {\n            \"@id\": \"{{baseUrlShipper}}/logistics-objects/{{pieceiPhone}}\"\n        }\n    ],\n    \"cargo:servedActivity\": {\n        \"@id\": \"{{baseUrlAirline}}/logistics-objects/{{transportMovement}}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrlAirline}}/logistics-objects",
+									"host": [
+										"{{baseUrlAirline}}"
+									],
+									"path": [
+										"logistics-objects"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJGYzdaSHZUNGozbldNenZkX2xuYUsySGZWWnUtYWtBLTB0TGMwLVgwc1BZIn0.eyJleHAiOjE3MDA3NjIxMjIsImlhdCI6MTcwMDcyNjEyMiwianRpIjoiYjdhMWI3NGYtNzlhNy00YzNjLThjZTUtNTY3ZjhmMTgzZDczIiwiaXNzIjoiaHR0cHM6Ly82ZXdjdG53Y3hhLnVzLWVhc3QtMS5hd3NhcHBydW5uZXIuY29tL3JlYWxtcy9uZW9uZSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIwYWU4OThmMy1kMjQ4LTRlYWMtODY4MS1iMDM4MWM4MmQ2YzAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJuZW9uZS1jbGllbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1uZW9uZSIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjUxLjE1NC4xMTQuMTY4IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJsb2dpc3RpY3NfYWdlbnRfdXJpIjoiaHR0cHM6Ly85aTV3dDdtNWJ6LnVzLWVhc3QtMS5hd3NhcHBydW5uZXIuY29tL2xvZ2lzdGljcy1vYmplY3RzL19kYXRhLWhvbGRlciIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1uZW9uZS1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiNTEuMTU0LjExNC4xNjgiLCJjbGllbnRfaWQiOiJuZW9uZS1jbGllbnQifQ.abaw2EBhWLH358TqisHgntZglojG2Bwrsd2dS3TiDt6VwKXUHy5fgVMUY72kp1OhXKOV0u0PM9Menw12eaHjVZwU-1rniOauD2Fag9h8BCa1AMp0s7O5675CUAEWkhDAY4rNVm96kTYG91dVEKwS377ggQ3OFxgku3mtchgL3Y_IlVea0y1ATeDs3fyDQbKwKg-IjaaOvkjVjncp_Go-7B-HeksG5GJepx8zJgEPL1BuiZtF2hg_hGlueinbhBGKb65EQB2iJi2mwHGoiOyhQymy9Z0PaPWwI-359mKvWx2GGD5YNDSfRRvjVtEkCZ0l6j9tidxxNIrpj78bng5B3w",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Token Request",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "neone-client",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "neone-client",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "ne-one-resource-server/openid",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrlKeyCloak}}/realms/neone/protocol/openid-connect/token",
+					"host": [
+						"{{baseUrlKeyCloak}}"
+					],
+					"path": [
+						"realms",
+						"neone",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get ServerInformation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJGYzdaSHZUNGozbldNenZkX2xuYUsySGZWWnUtYWtBLTB0TGMwLVgwc1BZIn0.eyJleHAiOjE3MDA3NjIxMjIsImlhdCI6MTcwMDcyNjEyMiwianRpIjoiYjdhMWI3NGYtNzlhNy00YzNjLThjZTUtNTY3ZjhmMTgzZDczIiwiaXNzIjoiaHR0cHM6Ly82ZXdjdG53Y3hhLnVzLWVhc3QtMS5hd3NhcHBydW5uZXIuY29tL3JlYWxtcy9uZW9uZSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiIwYWU4OThmMy1kMjQ4LTRlYWMtODY4MS1iMDM4MWM4MmQ2YzAiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJuZW9uZS1jbGllbnQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1uZW9uZSIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjUxLjE1NC4xMTQuMTY4IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJsb2dpc3RpY3NfYWdlbnRfdXJpIjoiaHR0cHM6Ly85aTV3dDdtNWJ6LnVzLWVhc3QtMS5hd3NhcHBydW5uZXIuY29tL2xvZ2lzdGljcy1vYmplY3RzL19kYXRhLWhvbGRlciIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1uZW9uZS1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiNTEuMTU0LjExNC4xNjgiLCJjbGllbnRfaWQiOiJuZW9uZS1jbGllbnQifQ.abaw2EBhWLH358TqisHgntZglojG2Bwrsd2dS3TiDt6VwKXUHy5fgVMUY72kp1OhXKOV0u0PM9Menw12eaHjVZwU-1rniOauD2Fag9h8BCa1AMp0s7O5675CUAEWkhDAY4rNVm96kTYG91dVEKwS377ggQ3OFxgku3mtchgL3Y_IlVea0y1ATeDs3fyDQbKwKg-IjaaOvkjVjncp_Go-7B-HeksG5GJepx8zJgEPL1BuiZtF2hg_hGlueinbhBGKb65EQB2iJi2mwHGoiOyhQymy9Z0PaPWwI-359mKvWx2GGD5YNDSfRRvjVtEkCZ0l6j9tidxxNIrpj78bng5B3w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/ld+json",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/ld+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrlShipper}}",
+					"host": [
+						"{{baseUrlShipper}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
