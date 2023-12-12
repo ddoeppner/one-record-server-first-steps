@@ -1,9 +1,24 @@
 version: '3.8'
 services:
+    ne-one-view:
+        image: git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one-view:dev
+        ports:
+            - "3000:3000"
+        environment:
+            - NUXT_PUBLIC_API_BASE=http://localhost:8080
+        depends_on:
+            ne-one-server:
+                condition: service_healthy
+
     ne-one-server:
         image: git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one:dev
         ports:
             - "8080:8080"
+        healthcheck:
+            test: curl --fail http://localhost:8080/q/health || exit 1
+            interval: 5s
+            timeout: 5s
+            retries: 10            
         environment:            
             - REPOSITORY_TYPE=http
             - HTTP_REPOSITORY_URL=http://graph-db:7200/repositories/neone
@@ -23,10 +38,10 @@ services:
             - QUARKUS_HTTP_CORS_ORIGINS=/.*/
             - QUARKUS_HTTP_CORS_EXPOSED_HEADERS=location,revision,latest-revision,type            
         depends_on:
-           keycloak:
-            condition: service_healthy
-           graph-db:
-            condition: service_healthy
+            keycloak:
+                condition: service_healthy
+            graph-db:
+                condition: service_healthy
         extra_hosts:
             - "host.docker.internal:host-gateway"
         

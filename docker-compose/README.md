@@ -1,4 +1,4 @@
-# Start minimal ne-one server setup with database
+# Start minimal ne-one server setup with ne-one view and database
 ```bash
 docker-compose up -d
 ```
@@ -8,6 +8,7 @@ docker-compose up -d
 | Name | Description | Base URL / Admin UI |
 |-|-|-|
 | ne-one server | [ne-one server](https://git.openlogisticsfoundation.org/wg-digitalaircargo/ne-one) | http://localhost:8080 |
+| ne-one view | [ne-one view](https://git.openlogisticsfoundation.org/wg-digitalaircargo/ne-one-view) | http://localhost:3000 |
 | graphdb | GraphDB database as database backend for ne-one server | http://localhost:7200 |
 | keycloak | Identity Provider for ne-one server to authenticate ONE Record clients and to obtain tokens for outgoing requests | http://localhost:8989 |
 
