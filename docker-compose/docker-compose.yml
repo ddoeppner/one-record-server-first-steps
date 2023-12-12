@@ -1,5 +1,15 @@
 version: '3.8'
 services:
+    ne-one-play:
+        build: 
+            context: .
+            dockerfile: ne-one-play/Dockerfile
+        ports:
+            - "3001:3000"
+        depends_on:
+            ne-one-server:
+                condition: service_healthy
+
     ne-one-view:
         image: git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one-view:dev
         ports:
