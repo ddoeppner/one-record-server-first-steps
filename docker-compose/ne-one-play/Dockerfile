@@ -28,7 +28,9 @@ COPY --from=deps /app /app
 ENV NEXT_TELEMETRY_DISABLED 1
 
 # Setup next.config.js to output a standalone build
-RUN sed -i "/experimental:/i \ \ output: 'standalone'," next.config.js
+# RUN sed -i "/experimental:/i \ \ output: 'standalone'," next.config.js
+RUN if ! grep -q "output: 'standalone'," next.config.js; then sed -i "/experimental:/i \ \ output: 'standalone'," next.config.js; fi
+
 
 # If using npm comment out above and use below instead
 RUN npm run build
