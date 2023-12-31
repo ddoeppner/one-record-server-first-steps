@@ -11,7 +11,7 @@ docker-compose up -d
 | ne-one view | [ne-one view](https://git.openlogisticsfoundation.org/wg-digitalaircargo/ne-one-view) | http://localhost:3000 |
 | ne-one play | [ne-one play](https://github.com/aloccid-iata/neoneplay) | http://localhost:3001 |
 | graphdb | GraphDB database as database backend for ne-one server | http://localhost:7200 |
-| keycloak | Identity Provider for ne-one server to authenticate ONE Record clients and to obtain tokens for outgoing requests | http://localhost:8989 |
+| keycloak | Identity provider for ne-one server to authenticate ONE Record clients and to obtain tokens for outgoing requests. <br/> **Preconfigured client_id:** neone-client<br/> **Preconfigured client_secret:** lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY  | http://localhost:8989 <br/> (username/password: admin/admin)|
 
 # Alternative supporting services
 
