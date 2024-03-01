@@ -98,6 +98,6 @@ To have you up and running we prepared a Postman collection. You will need to in
     - Token : <Use the postman collection to generate a token and copy it here (follow the previous paragraph)>
     - Color : pick up a random color
 
-    ![Image17](./assets/image/image17.PNG)
+    ![Image17](./assets/image/neone_setup.PNG)
 
 4. Now you can start using NE:ONE Play. 
