@@ -11,7 +11,15 @@ docker-compose up -d
 | ne-one view | [ne-one view](https://git.openlogisticsfoundation.org/wg-digitalaircargo/ne-one-view) | http://localhost:3000 |
 | ne-one play | [ne-one play](https://github.com/aloccid-iata/neoneplay) | http://localhost:3001 |
 | graphdb | GraphDB database as database backend for ne-one server | http://localhost:7200 |
-| keycloak | Identity provider for ne-one server to authenticate ONE Record clients and to obtain tokens for outgoing requests. <br/> **Preconfigured client_id:** neone-client<br/> **Preconfigured client_secret:** lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY  | http://localhost:8989 <br/> (username/password: admin/admin)|
+| keycloak | Identity provider for ne-one server to authenticate ONE Record clients and to obtain tokens for outgoing requests. | http://localhost:8989 <br/> (username/password: admin/admin)|
+
+> **Notes on Identitity Provider Keycloak:**<br/>
+> Keycloak has two preconfigured realm instances. ne-one sever is configured to trust both. This allows to test _Multi IdP scenarios_.<br/>
+> Token URLs: <br/>
+> - http://localhost:8989/realms/neone/protocol/openid-connect/token <br/>
+> - http://localhost:8989/realms/neone2/protocol/openid-connect/token <br/><br/>
+> **client_id:** neone-client <br/>
+> **client_secret:** lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY
 
 # Alternative supporting services
 

@@ -37,6 +37,8 @@ services:
             - LO_ID_CONFIG_SCHEME=http
             - AUTH_VALID_ISSUERS_LOCAL=http://localhost:8989/realms/neone
             - AUTH_ISSUERS_LOCAL_PUBLICKEY_LOCATION=http://keycloak:8989/realms/neone/protocol/openid-connect/certs
+            - AUTH_VALID_ISSUERS_LOCAL2=http://localhost:8989/realms/neone2
+            - AUTH_ISSUERS_LOCAL2_PUBLICKEY_LOCATION=http://keycloak:8989/realms/neone2/protocol/openid-connect/certs            
             - QUARKUS_OIDC_CLIENT_AUTH_SERVER_URL=http://keycloak:8989/realms/neone
             - QUARKUS_OIDC_CLIENT_CLIENT_ID=neone-client
             - QUARKUS_OIDC_CLIENT_CREDENTIALS_SECRET=lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY                                                                                     
@@ -56,7 +58,7 @@ services:
             - "host.docker.internal:host-gateway"
         
     keycloak:
-        image: quay.io/keycloak/keycloak:23.0
+        image: quay.io/keycloak/keycloak:24.0
         ports:
             - "8989:8989"
         healthcheck:
@@ -72,14 +74,14 @@ services:
             KC_HEALTH_ENABLED: true
             KC_HTTP_PORT: 8989                      
         volumes:
-            - "./keycloak/neone-realm.json:/opt/keycloak/data/import/neone-realm.json"
+            - "./keycloak:/opt/keycloak/data/import"
         command:
             - start-dev
-            - --import-realm    
-            - --hostname=localhost
+            - --import-realm
+            - -Dkeycloak.migration.provider=singleFile
 
     graph-db:
-        image: ontotext/graphdb:10.4.3
+        image: ontotext/graphdb:10.4.4
         ports:
             - "7200:7200"        
         healthcheck:
@@ -89,7 +91,7 @@ services:
             retries: 10
 
     graph-db-setup:
-        image: ontotext/graphdb:10.4.3
+        image: ontotext/graphdb:10.4.4
         entrypoint: [ "/bin/bash", "-c" ]
         restart: "no"
         depends_on:
