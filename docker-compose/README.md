@@ -52,6 +52,6 @@ _(this list is not exclusive)_
 > with
 > ```yaml
 > - REPOSITORY_TYPE=sparql
-> - SPARQL_QUERY_ENDPOINT=http://graphdb:7200/repositories/neone
-> - SPARQL_UPDATE_ENDPOINT=http://graphdb:7200/repositories/neone/statements
+> - SPARQL_QUERY_ENDPOINT=http://graph-db:7200/repositories/neone
+> - SPARQL_UPDATE_ENDPOINT=http://graph-db:7200/repositories/neone/statements
 > ```
