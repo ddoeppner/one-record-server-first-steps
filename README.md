@@ -25,7 +25,7 @@ The tutorial is based on the ONE Record API specification v2.0.0, ONE Record dat
 
 | Name | Description | Example |
 | ---- | ----------- | ------- |
-| **ONE Record server URL** | Base URL of the ONE Record Server that can be used to get the ServerInformation | <ul><li>http:/localhost:8080</li><li>https://1r.example.com</li></ul> |
+| **ONE Record server URL** | Base URL of the ONE Record Server that can be used to get the ServerInformation | <ul><li>http://localhost:8080</li><li>https://1r.example.com</li></ul> |
 | **LogisticsObjectURI** | Globally unique identifier that is created when a new LogisticsObject is created | http://localhost:8080/logistics-objects/eff8ba45-6d2c-4f0b-8a33-9de8f830f38b |
 | **Data holder URI** | Data holder of a ONE Record Server and the LogisticsObject located on it. Technically, this is a data object of type [Organization](https://onerecord.iata.org/ns/cargo#Organization), which is a subclass of LogisticsObject | <ul><li>http://localhost:8080/logistics-objects/_data-holder</li><li>https://1r.example.com/logistics-objects/51cbed0f-43db-4a8a-a0db-e80937540511</li></ul> |
 | **Access token URL** | HTTP endpoint provided by the authentication server that can be queried with client_id and client_secret to get an ID token | <ul><li>http://localhost:8989/realms/neone/protocol/openid-connect/token (Keycloak)</li><li>https://<tenant-name>.b2clogin.com/<tenant-name>.onmicrosoft.com/<policy-name>/oauth2/v2.0/token (Azure AD B2C)</li><li>https://<domain>.auth.<region>.amazoncognito.com/oauth2/token (AWS Cognito)</li><li>https://<domain>.okta.com/oauth2/<authorizationServerId>/v1/token (Okta)</li></ul> |
