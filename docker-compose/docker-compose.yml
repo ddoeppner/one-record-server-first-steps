@@ -1,4 +1,3 @@
-version: '3.8'
 services:
     ne-one-play:
         build: 
@@ -20,8 +19,8 @@ services:
             ne-one-server:
                 condition: service_healthy
 
-    ne-one-server:
-        image: git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one:dev
+    ne-one-server:        
+        image: git.openlogisticsfoundation.org:5050/wg-digitalaircargo/ne-one:experiment-sensor-measurements
         ports:
             - "8080:8080"
         healthcheck:
